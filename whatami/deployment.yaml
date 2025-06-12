@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: whatami
+  name: ami
   namespace: terje-spk
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: whatami
+      app: ami
   template:
     metadata:
       labels:
-        app: whatami
+        app: ami
     spec:
       securityContext:
         runAsNonRoot: true
@@ -22,7 +22,7 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       containers:
-        - name: whatami
+        - name: ami
           image: ghcr.io/traefik/whoami:latest
           securityContext:
             allowPrivilegeEscalation: false
@@ -34,7 +34,7 @@ spec:
               containerPort: 8080
           envFrom:
             - configMapRef:
-                name: whatami-config
+                name: ami-config
           resources:
             requests:
               cpu: 10m
